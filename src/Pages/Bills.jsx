@@ -47,10 +47,22 @@ const Bills = () => {
   //   setBillDetails((prevBillDetails)=>prevBillDetails.filter((bill)=>bill.slNo!=slNo))
   // }
   const deleteRow = (slNo) => {
-    setBillDetails((prevBillDetails)=>{
-      const update
-    })
-  }
+    setBillDetails((prevBillDetails) => {
+      const updateBillDetails = prevBillDetails.filter(
+        (bill) => bill.slNo !== slNo
+      );
+      return updateBillDetails;
+    });
+  };
+  const handleChange = (slno, field, value) => {
+    setBillDetails((prevBillDetails) => {
+      const updateBillDetails = prevBillDetails.map((bill) =>
+        bill.slNo === slno ? { ...bill, [field]: value } : bill
+      );
+      return updateBillDetails
+    });
+  };
+  console.log(billDetails)
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
@@ -59,28 +71,57 @@ const Bills = () => {
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3">
               {bill.slNo}
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div>
-                  <label htmlFor="">Description:</label>
-                  <input type="text" placeholder="Enter Description" />
+                  <label htmlFor="" className="text-xl font-semibold">
+                    Description:
+                  </label>
+                  <input
+                    type="text"
+                    onChange={(e)=>handleChange(bill.slNo,"billDescription",e.target.value)}
+                    className="text-xl ml-3 border p-1 rounded-md"
+                    placeholder="Enter Description"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="">Amount:</label>
-                  <input type="text" placeholder="Enter Amount" />
+                  <label htmlFor="" className="text-xl font-semibold">
+                    Amount:
+                  </label>
+                  <input
+                    type="text"
+                    onChange={(e)=>handleChange(bill.slNo,"billAmount",e.target.value)}
+                    className="text-xl ml-3 border p-1 rounded-md"
+                    placeholder="Enter Amount"
+                  />
                 </div>
                 <div className="mb-3">
-                  <MdDelete size={30} color="red" onClick={()=>deleteRow(bill.slNo)}/>
+                  <MdDelete
+                    size={30}
+                    color="red"
+                    onClick={() => deleteRow(bill.slNo)}
+                  />
                 </div>
               </div>
               <div className="flex justify-between">
                 <div>
-                  <label htmlFor="">Date:</label>
-                  <input type="date" placeholder="Enter Date" />
+                  <label htmlFor="" className="text-xl font-semibold">
+                    Date:
+                  </label>
+                  <input
+                    type="date"
+                    onChange={(e)=>handleChange(bill.slNo,"billDate",e.target.value)}
+                    className="text-xl ml-3 border p-1 rounded-md"
+                    placeholder="Enter Date"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="">Attachments:</label>
+                  <label htmlFor="" className="text-xl font-semibold">
+                    Attachments:
+                  </label>
                   <input
+                    className="text-xl ml-3 border p-1 rounded-md"
                     type="file"
+                    onChange={(e)=>handleChange(bill.slNo,"",e.target.value)}
                     accept={"jpg"}
                     placeholder="Enter Attachments"
                   />
