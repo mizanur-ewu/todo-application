@@ -54,22 +54,29 @@ const Bills = () => {
       return updateBillDetails;
     });
   };
-  const handleChange = (slno, field, value) => {
+  const handleChange = (slNo, field, value) => {
     setBillDetails((prevBillDetails) => {
       const updateBillDetails = prevBillDetails.map((bill) =>
-        bill.slNo === slno ? { ...bill, [field]: value } : bill
+        bill.slNo === slNo ? { ...bill, [field]: value } : bill
       );
-      return updateBillDetails
+      return updateBillDetails;
     });
   };
-  console.log(billDetails)
+  const handleFileChange = (slNo, files) => {
+    setBillDetails((prevBillDetails) =>
+      prevBillDetails.map((bill) =>
+        bill.slNo === slNo ? { ...bill, billAttachments: files } : bill
+      )
+    );
+  };
+  console.log(billDetails);
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
       <div>
         <div className="w-1/2">
           {billDetails.map((bill) => (
-            <div key={bill.slNo} className="border p-3">
+            <div key={bill.slNo} className="border p-3 bg-teal-600">
               {bill.slNo}
               <div className="flex justify-between items-center">
                 <div>
@@ -78,7 +85,9 @@ const Bills = () => {
                   </label>
                   <input
                     type="text"
-                    onChange={(e)=>handleChange(bill.slNo,"billDescription",e.target.value)}
+                    onChange={(e) =>
+                      handleChange(bill.slNo, "billDescription", e.target.value)
+                    }
                     className="text-xl ml-3 border p-1 rounded-md"
                     placeholder="Enter Description"
                   />
@@ -89,7 +98,9 @@ const Bills = () => {
                   </label>
                   <input
                     type="text"
-                    onChange={(e)=>handleChange(bill.slNo,"billAmount",e.target.value)}
+                    onChange={(e) =>
+                      handleChange(bill.slNo, "billAmount", e.target.value)
+                    }
                     className="text-xl ml-3 border p-1 rounded-md"
                     placeholder="Enter Amount"
                   />
@@ -102,14 +113,16 @@ const Bills = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div>
                   <label htmlFor="" className="text-xl font-semibold">
                     Date:
                   </label>
                   <input
                     type="date"
-                    onChange={(e)=>handleChange(bill.slNo,"billDate",e.target.value)}
+                    onChange={(e) =>
+                      handleChange(bill.slNo, "billDate", e.target.value)
+                    }
                     className="text-xl ml-3 border p-1 rounded-md"
                     placeholder="Enter Date"
                   />
@@ -121,8 +134,11 @@ const Bills = () => {
                   <input
                     className="text-xl ml-3 border p-1 rounded-md"
                     type="file"
-                    onChange={(e)=>handleChange(bill.slNo,"",e.target.value)}
-                    accept={"jpg"}
+                    accept=".jpg,.jpeg,.png"
+                    multiple
+                    onChange={(e) =>
+                      handleFileChange(bill.slNo, Array.from(e.target.files))
+                    }
                     placeholder="Enter Attachments"
                   />
                 </div>
