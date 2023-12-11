@@ -98,9 +98,7 @@ const DependentSelector = () => {
     }));
     setCompanies(companies);
 
-    const unites = companyUnitesDepartments
-      .map((company) =>
-      )
+    
     
   }, []);
 
