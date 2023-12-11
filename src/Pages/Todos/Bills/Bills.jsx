@@ -3,6 +3,7 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
 import React, { useState } from "react";
+import ShowBills from "./ShowBills";
 
 const Bills = () => {
   const [billDetails, setBillDetails] = useState([
@@ -54,22 +55,31 @@ const Bills = () => {
       return updateBillDetails;
     });
   };
-  const handleChange = (slno, field, value) => {
+  const handleInputChange = (slNo, field, value) => {
     setBillDetails((prevBillDetails) => {
       const updateBillDetails = prevBillDetails.map((bill) =>
-        bill.slNo === slno ? { ...bill, [field]: value } : bill
+        bill.slNo === slNo ? { ...bill, [field]: value } : bill
       );
-      return updateBillDetails
+      return updateBillDetails;
     });
   };
-  console.log(billDetails)
+  const handleFileChange = (slNo, files) => {
+    setBillDetails((prevBillDetails) =>
+      prevBillDetails.map((bill) =>
+        bill.slNo === slNo
+          ? { ...bill, billAttachments: [...bill.billAttachments, ...files] }
+          : bill
+      )
+    );
+  };
+  console.log(billDetails);
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
-      <div>
+      <div className="flex">
         <div className="w-1/2">
           {billDetails.map((bill) => (
-            <div key={bill.slNo} className="border p-3">
+            <div key={bill.slNo} className="border p-3 bg-teal-600">
               {bill.slNo}
               <div className="flex justify-between items-center">
                 <div>
@@ -78,8 +88,14 @@ const Bills = () => {
                   </label>
                   <input
                     type="text"
-                    onChange={(e)=>handleChange(bill.slNo,"billDescription",e.target.value)}
-                    className="text-xl ml-3 border p-1 rounded-md"
+                    onChange={(e) =>
+                      handleInputChange(
+                        bill.slNo,
+                        "billDescription",
+                        e.target.value
+                      )
+                    }
+                    className="text-xl border p-1 rounded-md"
                     placeholder="Enter Description"
                   />
                 </div>
@@ -89,8 +105,10 @@ const Bills = () => {
                   </label>
                   <input
                     type="text"
-                    onChange={(e)=>handleChange(bill.slNo,"billAmount",e.target.value)}
-                    className="text-xl ml-3 border p-1 rounded-md"
+                    onChange={(e) =>
+                      handleInputChange(bill.slNo, "billAmount", e.target.value)
+                    }
+                    className="text-xl border p-1 rounded-md"
                     placeholder="Enter Amount"
                   />
                 </div>
@@ -102,27 +120,33 @@ const Bills = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div>
                   <label htmlFor="" className="text-xl font-semibold">
                     Date:
                   </label>
                   <input
                     type="date"
-                    onChange={(e)=>handleChange(bill.slNo,"billDate",e.target.value)}
-                    className="text-xl ml-3 border p-1 rounded-md"
+                    onChange={(e) =>
+                      handleInputChange(bill.slNo, "billDate", e.target.value)
+                    }
+                    className="text-xl border p-1 rounded-md w-full"
                     placeholder="Enter Date"
                   />
                 </div>
-                <div>
+                <div className="flex-row justify-between ">
                   <label htmlFor="" className="text-xl font-semibold">
                     Attachments:
                   </label>
+                  <br />
                   <input
-                    className="text-xl ml-3 border p-1 rounded-md"
+                    className="text-xl border p-1 rounded-md w-1/2"
                     type="file"
-                    onChange={(e)=>handleChange(bill.slNo,"",e.target.value)}
-                    accept={"jpg"}
+                    accept=".jpg,.jpeg,.png"
+                    multiple
+                    onChange={(e) =>
+                      handleFileChange(bill.slNo, Array.from(e.target.files))
+                    }
                     placeholder="Enter Attachments"
                   />
                 </div>
@@ -130,8 +154,18 @@ const Bills = () => {
                   <IoAddCircleSharp size={30} color="blue" onClick={addRow} />
                 </div>
               </div>
+              {bill?.billAttachments?.map((attachment, index) => (
+                <span key={index}>
+                  <span>{attachment.name}</span>
+                </span>
+              ))}
             </div>
           ))}
+        </div>
+        {console.log(billDetails)}
+
+        <div className="w-1/2">
+          <ShowBills billDetails={billDetails} />
         </div>
       </div>
     </div>
