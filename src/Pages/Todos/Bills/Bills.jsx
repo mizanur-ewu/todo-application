@@ -76,7 +76,7 @@ const Bills = () => {
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
-      <div>
+      <div className="flex">
         <div className="w-1/2">
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3 bg-teal-600">
@@ -89,7 +89,11 @@ const Bills = () => {
                   <input
                     type="text"
                     onChange={(e) =>
-                      handleInputChange(bill.slNo, "billDescription", e.target.value)
+                      handleInputChange(
+                        bill.slNo,
+                        "billDescription",
+                        e.target.value
+                      )
                     }
                     className="text-xl border p-1 rounded-md"
                     placeholder="Enter Description"
@@ -150,21 +154,20 @@ const Bills = () => {
                   <IoAddCircleSharp size={30} color="blue" onClick={addRow} />
                 </div>
               </div>
-              {
-                bill?.billAttachments?.map((attachment, index)=>(
-                  <span key={index} >
-                    <span>
-                      {attachment.name}
-                    </span>
-                  </span>
-                ))
-              }
+              {bill?.billAttachments?.map((attachment, index) => (
+                <span key={index}>
+                  <span>{attachment.name}</span>
+                </span>
+              ))}
             </div>
           ))}
         </div>
         {console.log(billDetails)}
+
+        <div className="w-1/2">
+          <ShowBills billDetails={billDetails} />
+        </div>
       </div>
-      <ShowBills billDetails={billDetails} />
     </div>
   );
 };
