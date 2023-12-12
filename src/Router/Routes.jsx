@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home";
 import Bills from "../Pages/Todos/Bills/Bills";
 import Todos from "../Pages/Todos/Todos";
 import DependentSelector from "../Pages/DependentSelector/DependentSelector";
+import Xlsx from "../Pages/Xlsx/Xlsx";
 
  export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ import DependentSelector from "../Pages/DependentSelector/DependentSelector";
         {
             path:"/dependentSelector",
             element:<DependentSelector/>
+        },
+        {
+            path:"/xlsx",
+            element:<Xlsx/>
         }
       ]
     },

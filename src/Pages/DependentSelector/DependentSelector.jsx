@@ -95,7 +95,7 @@ const DependentSelector = () => {
     const companies = companyUnitesDepartments.map((company) => ({
       id: company.id,
       name: company.name,
-    }));
+    })); // [{id:111,name:"company1"},{id:1111,name:"company2"}]
     setCompanies(companies);
 
     
