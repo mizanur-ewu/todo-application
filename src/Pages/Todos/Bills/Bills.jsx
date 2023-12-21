@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 
 import { useState } from "react";
 import ShowBills from "./ShowBills";
+import { RxCross2 } from "react-icons/rx";
 
 const Bills = () => {
   const [showBillDetails, setShowBillDetails] = useState(false);
@@ -73,7 +74,31 @@ const Bills = () => {
       )
     );
   };
-  console.log(billDetails);
+  const handleDeleteAttachment=(slNo, index)=>{
+    setBillDetails((prevBillDetails)=>{
+      const updateBillDetails=prevBillDetails.map((bill)=>{
+        if(bill.slNo===slNo){
+          bill.billAttachments.splice(index,1)
+        }
+        return bill
+      })
+      return updateBillDetails
+    })
+    // const handleDeleteAttachment = (slNo, index) => {
+    //   setBillDetails((prevBillDetails) => {
+    //     const updatedBillDetails = prevBillDetails.map((bill) => {
+    //       if (bill.slNo === slNo) {
+    //         // Use slice to create a new array without modifying the original
+    //         bill.billAttachments = bill.billAttachments.slice(0, index).concat(bill.billAttachments.slice(index + 1));
+    //       }
+    //       return bill;
+    //     });
+    //     return updatedBillDetails;
+    //   });
+    // };
+    
+
+  }
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
@@ -156,8 +181,13 @@ const Bills = () => {
                 </div>
               </div>
               {bill?.billAttachments?.map((attachment, index) => (
-                <span key={index}>
-                  <span className="bg-fuchsia-800 mr-2 px-1 rounded-md inline-block	mt-2">{`${index+1}. ${attachment.name}`}</span>
+                <span className="flex items-center" key={index}>
+                  <span className="bg-fuchsia-800 mr-2 px-1 rounded-md 	mt-2">
+                    {`${index + 1}. ${attachment.name}`}
+                  </span>
+                  <button className="mt-2" onClick={()=>handleDeleteAttachment(bill.slNo, index)}>
+                    <RxCross2 />
+                  </button>
                 </span>
               ))}
             </div>
