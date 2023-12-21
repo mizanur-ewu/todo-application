@@ -2,10 +2,12 @@ import { IoAddCircleSharp } from "react-icons/io5";
 
 import { MdDelete } from "react-icons/md";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ShowBills from "./ShowBills";
+import { RxCross2 } from "react-icons/rx";
 
 const Bills = () => {
+  const [showBillDetails, setShowBillDetails] = useState(false);
   const [billDetails, setBillDetails] = useState([
     {
       slNo: 1,
@@ -72,12 +74,36 @@ const Bills = () => {
       )
     );
   };
-  console.log(billDetails);
+  const handleDeleteAttachment=(slNo, index)=>{
+    setBillDetails((prevBillDetails)=>{
+      const updateBillDetails=prevBillDetails.map((bill)=>{
+        if(bill.slNo===slNo){
+          bill.billAttachments.splice(index,1)
+        }
+        return bill
+      })
+      return updateBillDetails
+    })
+    // const handleDeleteAttachment = (slNo, index) => {
+    //   setBillDetails((prevBillDetails) => {
+    //     const updatedBillDetails = prevBillDetails.map((bill) => {
+    //       if (bill.slNo === slNo) {
+    //         // Use slice to create a new array without modifying the original
+    //         bill.billAttachments = bill.billAttachments.slice(0, index).concat(bill.billAttachments.slice(index + 1));
+    //       }
+    //       return bill;
+    //     });
+    //     return updatedBillDetails;
+    //   });
+    // };
+    
+
+  }
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
       <div className="flex">
-        <div className="w-1/2">
+        <div className="max-w-2xl">
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3 bg-teal-600">
               {bill.slNo}
@@ -155,17 +181,28 @@ const Bills = () => {
                 </div>
               </div>
               {bill?.billAttachments?.map((attachment, index) => (
-                <span key={index}>
-                  <span>{attachment.name}</span>
+                <span className="flex items-center" key={index}>
+                  <span className="bg-fuchsia-800 mr-2 px-1 rounded-md 	mt-2">
+                    {`${index + 1}. ${attachment.name}`}
+                  </span>
+                  <button className="mt-2" onClick={()=>handleDeleteAttachment(bill.slNo, index)}>
+                    <RxCross2 />
+                  </button>
                 </span>
               ))}
             </div>
           ))}
+          <div
+            className="flex justify-center border-2 bg-blue-500 rounded-md hover:bg-blue-800 py-2 text-white font-semibold"
+            onClick={() => setShowBillDetails((prev) => !prev)}
+          >
+            <button className="">{showBillDetails ? "Hide" : "Show"}</button>
+          </div>
         </div>
-        {console.log(billDetails)}
+        {console.log(showBillDetails)}
 
-        <div className="w-1/2">
-          <ShowBills billDetails={billDetails} />
+        <div className="">
+          {showBillDetails && <ShowBills billDetails={billDetails} />}
         </div>
       </div>
     </div>
