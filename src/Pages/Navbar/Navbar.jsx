@@ -10,6 +10,7 @@ const Navbar = () => {
                 <li><Link className='m-2 px-1 rounded-md text-xl bg-blue-600' to="/bills">Bills</Link></li>
                 <li><Link className='m-2 px-1 rounded-md text-xl bg-blue-600' to="/todos">Todos</Link></li>
                 <li><Link className='m-2 px-1 rounded-md text-xl bg-blue-600' to="/dependentSelector">Dependent Selector</Link></li>
+                <li><Link className='m-2 px-1 rounded-md text-xl bg-blue-600' to="/xlsx">XLSX</Link></li>
             </ul>
         </div>
     );
