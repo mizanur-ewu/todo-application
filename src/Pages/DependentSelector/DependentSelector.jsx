@@ -92,41 +92,37 @@ const DependentSelector = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
-    const companies = companyUnitesDepartments.map((company) => ({
-      id: company.id,
-      name: company.name,
-    }));
-    setCompanies(companies);
+    // const companies = companyUnitesDepartments.map((company) => ({
+    //   id: company.id,
+    //   name: company.name,
+    // }));
+    // setCompanies(companies);
     handleChange();
   }, []);
 
-  const handleChange = (field = "company", value = companies[0]?.id) => {
+  const handleChange = (
+    field = "company",
+    value = companyUnitesDepartments[0]?.id
+  ) => {
     if (field === "company") {
-      const selectedCompany = companyUnitesDepartments.find(
-        (company) => company?.id === Number(value)
-      );
-      if (selectedCompany) {
-        const unites = selectedCompany?.unites?.find(
-          (unite) => unite?.id === Number(value)
-        );
-        setUnites(unites);
-
-        if (unites) {
-          setDepartments(unites[0]?.departments);
+      const selectedCompany = companyUnitesDepartments.find((company) => {
+        if (company?.id === Number(value)) {
+          setCompanies(company);
+          return company;
         }
-      }
+      });
+      setUnites(selectedCompany?.unites);
+
+      setDepartments(selectedCompany?.unites[0].departments);
     }
+    // console.log(companies?.unites);
     if (field === "unit") {
-      const selectedUnite = companyUnitesDepartments.find((company) =>
-        company?.unites?.find((unite) => unite?.id === Number(value))
-      );
-      if (selectedUnite) {
-        const departments = selectedUnite?.departments?.map((department) => ({
-          id: department.id,
-          name: department.name,
-        }));
-        setDepartments(departments);
-      }
+      const selectedUnites = unites.find((unite) => {
+        if (unite?.id === Number(value)) {
+          return unite;
+        }
+      });
+      setDepartments(selectedUnites?.departments);
     }
   };
 

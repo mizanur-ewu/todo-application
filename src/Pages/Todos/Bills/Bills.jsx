@@ -74,16 +74,16 @@ const Bills = () => {
       )
     );
   };
-  const handleDeleteAttachment=(slNo, index)=>{
-    setBillDetails((prevBillDetails)=>{
-      const updateBillDetails=prevBillDetails.map((bill)=>{
-        if(bill.slNo===slNo){
-          bill.billAttachments.splice(index,1)
+  const handleDeleteAttachment = (slNo, index) => {
+    setBillDetails((prevBillDetails) => {
+      const updateBillDetails = prevBillDetails.map((bill) => {
+        if (bill.slNo === slNo) {
+          bill.billAttachments.splice(index, 1);
         }
-        return bill
-      })
-      return updateBillDetails
-    })
+        return bill;
+      });
+      return updateBillDetails;
+    });
     // const handleDeleteAttachment = (slNo, index) => {
     //   setBillDetails((prevBillDetails) => {
     //     const updatedBillDetails = prevBillDetails.map((bill) => {
@@ -96,13 +96,11 @@ const Bills = () => {
     //     return updatedBillDetails;
     //   });
     // };
-    
-
-  }
+  };
   return (
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
-      <div className="flex">
+      <div className="flex flex-row justify-between">
         <div className="max-w-2xl">
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3 bg-teal-600">
@@ -185,7 +183,10 @@ const Bills = () => {
                   <span className="bg-fuchsia-800 mr-2 px-1 rounded-md 	mt-2">
                     {`${index + 1}. ${attachment.name}`}
                   </span>
-                  <button className="mt-2" onClick={()=>handleDeleteAttachment(bill.slNo, index)}>
+                  <button
+                    className="mt-2"
+                    onClick={() => handleDeleteAttachment(bill.slNo, index)}
+                  >
                     <RxCross2 />
                   </button>
                 </span>
@@ -199,10 +200,14 @@ const Bills = () => {
             <button className="">{showBillDetails ? "Hide" : "Show"}</button>
           </div>
         </div>
-        {console.log(showBillDetails)}
 
-        <div className="">
-          {showBillDetails && <ShowBills billDetails={billDetails} />}
+        <div className="max-w-1/3 p-4">
+          {showBillDetails && (
+            <ShowBills
+              billDetails={billDetails}
+              setBillDetails={setBillDetails}
+            />
+          )}
         </div>
       </div>
     </div>
