@@ -3,84 +3,84 @@ import React, { useEffect, useState } from "react";
 const DependentSelector = () => {
   const companyUnitesDepartments = [
     {
-      id: 111,
+      id: 1,
       name: "company1",
       unites: [
         {
-          id: 222,
-          name: "unite1",
+          id: 11,
+          name: "unite11",
           departments: [
             {
-              id: 333,
-              name: "department1",
+              id: 111,
+              name: "department111",
             },
             {
-              id: 444,
-              name: "department2",
+              id: 112,
+              name: "department112",
             },
             {
-              id: 555,
-              name: "department3",
+              id: 113,
+              name: "department113",
             },
           ],
         },
         {
-          id: 666,
-          name: "unite2",
+          id: 12,
+          name: "unite12",
           departments: [
             {
-              id: 777,
-              name: "department11",
+              id: 121,
+              name: "department121",
             },
             {
-              id: 888,
-              name: "department22",
+              id: 122,
+              name: "department122",
             },
             {
-              id: 999,
-              name: "department33",
+              id: 123,
+              name: "department123",
             },
           ],
         },
       ],
     },
     {
-      id: 1111,
+      id: 2,
       name: "company2",
       unites: [
         {
-          id: 2222,
-          name: "unite11",
+          id: 21,
+          name: "unite21",
           departments: [
             {
-              id: 3333,
-              name: "department111",
+              id: 211,
+              name: "department211",
             },
             {
-              id: 4444,
-              name: "department222",
+              id: 212,
+              name: "department212",
             },
             {
-              id: 5555,
-              name: "department333",
+              id: 213,
+              name: "department213",
             },
           ],
         },
         {
-          id: 6666,
+          id: 22,
           name: "unite22",
           departments: [
             {
-              id: 7777,
-              name: "department1111",
+              id: 221,
+              name: "department221",
             },
             {
-              id: 8888,
-              name: "department2222",
+              id: 222,
+              name: "department222",
             },
             {
-              id: 9999,
-              name: "department3333",
+              id: 223,
+              name: "department223",
             },
           ],
         },
@@ -92,51 +92,73 @@ const DependentSelector = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
-    const companies = companyUnitesDepartments.map((company) => ({
-      id: company.id,
-      name: company.name,
-    }));
-    setCompanies(companies);
-
-    const unites = companyUnitesDepartments
-      .map((company) =>
-      )
-    
+    // const companies = companyUnitesDepartments.map((company) => ({
+    //   id: company.id,
+    //   name: company.name,
+    // }));
+    // setCompanies(companies);
+    handleChange();
   }, []);
+
+  const handleChange = (
+    field = "company",
+    value = companyUnitesDepartments[0]?.id
+  ) => {
+    if (field === "company") {
+      const selectedCompany = companyUnitesDepartments.find((company) => {
+        if (company?.id === Number(value)) {
+          setCompanies(company);
+          return company;
+        }
+      });
+      setUnites(selectedCompany?.unites);
+
+      setDepartments(selectedCompany?.unites[0].departments);
+    }
+    // console.log(companies?.unites);
+    if (field === "unit") {
+      const selectedUnites = unites.find((unite) => {
+        if (unite?.id === Number(value)) {
+          return unite;
+        }
+      });
+      setDepartments(selectedUnites?.departments);
+    }
+  };
 
   return (
     <div className="text-center">
       <h5 className="text-2xl">Dependent Selector Company, Unit, Department</h5>
       <div className="flex justify-center">
-        <select className="border-2 border-gray-500 rounded-md p-1 m-2">
-          <option value="">Select Company</option>
-          {companyUnitesDepartments.map((company) => (
-            <option key={company.id} value={company.id}>
+        <select
+          className="border-2 border-gray-500 rounded-md p-1 m-2"
+          onChange={(e) => handleChange("company", e.target.value)}
+        >
+          {companyUnitesDepartments?.map((company) => (
+            <option key={company?.id} value={company?.id}>
               {company.name}
             </option>
           ))}
         </select>
-        <select className="border-2 border-gray-500 rounded-md p-1 m-2">
-          <option value="">Select Unit</option>
-          {companyUnitesDepartments.map((company) =>
-            company.unites.map((unite) => (
-              <option key={unite.id} value={unite.id}>
-                {unite.name}
-              </option>
-            ))
-          )}
+        <select
+          className="border-2 border-gray-500 rounded-md p-1 m-2"
+          onChange={(e) => handleChange("unit", e.target.value)}
+        >
+          {unites.map((unite) => (
+            <option key={unite?.id} value={unite.id}>
+              {unite?.name}{" "}
+            </option>
+          ))}
         </select>
-        <select className="border-2 border-gray-500 rounded-md p-1 m-2">
-          <option value="">Select Department</option>
-          {companyUnitesDepartments.map((company) =>
-            company.unites.map((unite) =>
-              unite.departments.map((department) => (
-                <option key={department.id} value={department.id}>
-                  {department.name}
-                </option>
-              ))
-            )
-          )}
+        <select
+          className="border-2 border-gray-500 rounded-md p-1 m-2"
+          onChange={(e) => handleChange("department", e.target.value)}
+        >
+          {departments?.map((department) => (
+            <option key={department?.id} value={department.id}>
+              {department?.name}
+            </option>
+          ))}
         </select>
       </div>
     </div>
