@@ -12,10 +12,11 @@ import Todos from "./Pages/Todos/Todos";
 import PrivateRoute from "./Router/ProtectedRoute";
 import Xlsx from "./Pages/Xlsx/Xlsx";
 import Login from "./Pages/Login/Login";
+import RequireAuth from "./utils/RequireAuth";
 
+export const AuthContext = React.createContext();
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const AuthContext = React.createContext();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
@@ -24,7 +25,16 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />}>
               <Route index element={<Home />} />
-              <Route path="/bills" element={<Bills />} />
+              <Route
+                path="/bills"
+                element={
+                  <RequireAuth pageName={"bills"}>
+                    <Bills />
+                  </RequireAuth>
+                }
+              >
+                {/* <Route path="/bills" element={<Bills />} /> */}
+              </Route>
               <Route
                 path="/dependentSelector"
                 element={<DependentSelector />}
