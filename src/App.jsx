@@ -16,7 +16,7 @@ import RequireAuth from "./utils/RequireAuth";
 
 export const AuthContext = React.createContext();
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <>
