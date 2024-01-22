@@ -12,7 +12,6 @@ const Login = () => {
       Number(values?.password) === 1234
         ? "successfullyLoggedIn"
         : "loginFailed";
-    console.log(import.meta.env.VITE_AUTH_TOKEN);
     setAuthToken(data);
   };
   return (
