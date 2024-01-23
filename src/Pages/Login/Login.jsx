@@ -1,9 +1,12 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import useLocalStorage from "../../utils/useLocalStorage";
+import { useContext } from "react";
+import { AuthContext } from "../../App";
 
 const Login = () => {
   const localStorage = useLocalStorage();
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { getAuthToken, setAuthToken } = localStorage;
 
   const onFinish = (values) => {
@@ -12,7 +15,6 @@ const Login = () => {
       Number(values?.password) === 1234
         ? "successfullyLoggedIn"
         : "loginFailed";
-    console.log(import.meta.env.VITE_AUTH_TOKEN);
     setAuthToken(data);
   };
   return (
