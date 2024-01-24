@@ -1,22 +1,22 @@
-import React, { useContext } from "react";
 import useLocalStorage from "./useLocalStorage";
-import { Navigate } from "react-router-dom";
-import { AuthContext } from "../App";
+import { Navigate, useParams } from "react-router-dom";
 
 const RequireAuth = ({ pageName, children }) => {
-  // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  // setIsLoggedIn(true)
   const localStorage = useLocalStorage();
+  const {pName}  = useParams();
+  console.log(pName);
   const { getAuthToken } = localStorage;
-  // console.log(isLoggedIn);
-  if (!getAuthToken()) {
+
+  const hasPermission = getAuthToken()?.userPermission?.some(
+    (permission) => permission?.link === `/${pName}`
+  );
+  console.log(getAuthToken())
+
+  if (!hasPermission) {
     return <Navigate to="/login" />;
   }
-  return (
-    <div>
-      {children}
-    </div>
-  );
+
+  return <div>{children}</div>;
 };
 
 export default RequireAuth;

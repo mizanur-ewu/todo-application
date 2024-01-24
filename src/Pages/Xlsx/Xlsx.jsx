@@ -4,6 +4,24 @@ import { useEffect } from "react";
 import { read, utils, writeFile, writeFileXLSX } from "xlsx";
 
 const Xlsx = () => {
+  const array = [21, 4, 1, 6, 4, 6];
+  // array.forEach((item, index, array)=>  console.log(item, index, array));
+  // for(let x in array){
+  // console.log(x)
+  //   console.log(array[x])
+  // }
+  // for (let x of array) {
+  //   console.log(x);
+  // }
+for(let i=1;i<=5;i++){
+  for(let j=11;j<15;j++){
+    if(i==2)
+    break;
+    console.log(i)
+  }
+}
+
+
   const [pres, setPres] = useState([]);
   //form to object  ===================================================>>>>>>>>>
   useEffect(() => {
@@ -81,7 +99,12 @@ const Xlsx = () => {
           </tbody>
           <tfoot>
             <td colSpan={2}>
-              <button className="bg-blue-400 rounded-md px-2" onClick={exportFile}>Export XLSX</button>
+              <button
+                className="bg-blue-400 rounded-md px-2"
+                onClick={exportFile}
+              >
+                Export XLSX
+              </button>
             </td>
           </tfoot>
         </table>

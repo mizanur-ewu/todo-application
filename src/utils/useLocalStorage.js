@@ -20,7 +20,7 @@ const useLocalStorage = () => {
         {
           id: 3,
           name: "Dependent Selector",
-          link: "/dependentSelector",
+          link: "/dependentSelector", 
         },
         {
           id: 4,
