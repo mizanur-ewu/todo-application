@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
-import { router } from "./Router/Routes";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./Layout/Main";
 import Bills from "./Pages/Todos/Bills/Bills";
 import Home from "./Pages/Home/Home";
@@ -14,7 +11,6 @@ import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   return (
     <>
@@ -29,25 +25,24 @@ function App() {
                   <Bills />
                 </RequireAuth>
               }
-            /><Route
-            path="/todos"
-            element={
-              <RequireAuth pageName={"Todos"}>
-                <Todos />
-              </RequireAuth>
-            }
-          />
+            />
+            <Route
+              path="/todos"
+              element={
+                <RequireAuth pageName={"Todos"}>
+                  <Todos />
+                </RequireAuth>
+              }
+            />
             <Route
               path="/dependentSelector"
               element={
-
-
-                <RequireAuth pa >
+                <RequireAuth pageName={"Dependent Selector"}>
                   <DependentSelector />
                 </RequireAuth>
               }
             />
-            
+
             <Route
               path="/xlsx"
               element={

@@ -12,11 +12,11 @@ const useLocalStorage = () => {
           name: "Bills",
           link: "/bills",
         },
-        {
-          id: 2,
-          name: "Todos",
-          link: "/todos",
-        },
+        // {
+        //   id: 2,
+        //   name: "Todos",
+        //   link: "/todos",
+        // },
         {
           id: 3,
           name: "Dependent Selector",
