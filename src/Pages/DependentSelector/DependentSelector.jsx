@@ -92,11 +92,6 @@ const DependentSelector = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
-    // const companies = companyUnitesDepartments.map((company) => ({
-    //   id: company.id,
-    //   name: company.name,
-    // }));
-    // setCompanies(companies);
     handleChange();
   }, []);
 
