@@ -1,22 +1,22 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./Router/Routes.jsx";
+import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import App from "./App.jsx";
-import BlogProvider from "./contextApi/blogContext.jsx";
+import AuthContext from "./contextApi/AuthContext.jsx";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BlogProvider>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ReactQueryDevtools
-        buttonPosition={"bottom-left"}
-        initialIsOpen={false}
-      />
-    </QueryClientProvider>
-  </BlogProvider>
+  <BrowserRouter>
+    <AuthContext>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools
+          buttonPosition={"bottom-left"}
+          initialIsOpen={false}
+        />
+      </QueryClientProvider>
+    </AuthContext>
+  </BrowserRouter>
 );

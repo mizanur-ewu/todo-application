@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Main from "./Layout/Main";
 import Bills from "./Pages/Todos/Bills/Bills";
 import Home from "./Pages/Home/Home";
@@ -10,55 +10,59 @@ import Xlsx from "./Pages/Xlsx/Xlsx";
 import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 import NotFound from "./Pages/NotFound/NotFound";
+import useAuth from "./hooks/useAuth";
+// import useAuth from "./utils/useAuth";
 
 function App() {
-  const { params } = useParams();
-  console.log(params);
+  // console.log(location?.pathname);
+  const { auth, loading } = useAuth();
+  console.log(auth);
+  // if(loading){
+  //   return <p>loading</p>
+  // }
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />}>
-            <Route index element={<Home />} />
-            <Route
-              path="/bills"
-              element={
-                <RequireAuth pageName={"Bills"}>
-                  <Bills />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/todos"
-              element={
-                <RequireAuth pageName={"Todos"}>
-                  <Todos />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/dependentSelector"
-              element={
-                <RequireAuth pageName={"Dependent Selector"}>
-                  <DependentSelector />
-                </RequireAuth>
-              }
-            />
-
-            <Route path="*" element={<NotFound />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
+      <Routes>
+        <Route path="/" element={<Main />}>
+          <Route index element={<Home />} />
           <Route
-            path="/xlsx"
+            path="/bills"
             element={
-              <PrivateRoute>
-                <Xlsx />
-              </PrivateRoute>
+              <RequireAuth pageName={"Bills"}>
+                <Bills />
+              </RequireAuth>
             }
           />
-        </Routes>
-      </BrowserRouter>
+          <Route
+            path="/todos"
+            element={
+              <RequireAuth pageName={"Todos"}>
+                <Todos />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/dependentSelector"
+            element={
+              <RequireAuth pageName={"Dependent Selector"}>
+                <DependentSelector />
+              </RequireAuth>
+            }
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/xlsx"
+          element={
+            <PrivateRoute>
+              <Xlsx />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </>
   );
 }

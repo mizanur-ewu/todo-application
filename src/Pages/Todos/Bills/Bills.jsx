@@ -2,15 +2,13 @@ import { IoAddCircleSharp } from "react-icons/io5";
 
 import { MdDelete } from "react-icons/md";
 
-import { useContext, useState } from "react";
+import {useState } from "react";
 import ShowBills from "./ShowBills";
 import { RxCross2 } from "react-icons/rx";
-import { BlogContext } from "../../../contextApi/blogContext";
 
 const Bills = () => {
   const [showBillDetails, setShowBillDetails] = useState(false);
-  const [blogState, setBlogState] = useContext(BlogContext);
-  console.log(blogState)
+
   const [billDetails, setBillDetails] = useState([
     {
       slNo: 1,
@@ -155,7 +153,11 @@ const Bills = () => {
                   <input
                     type="date"
                     onChange={(e) =>
-                      handleInputChange(bill.slNo, "billDate", e.target.value.toISOString())
+                      handleInputChange(
+                        bill.slNo,
+                        "billDate",
+                        e.target.value.toISOString()
+                      )
                     }
                     className="text-xl border p-1 rounded-md w-full"
                     placeholder="Enter Date"
