@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Main from "./Layout/Main";
 import Bills from "./Pages/Todos/Bills/Bills";
 import Home from "./Pages/Home/Home";
@@ -15,8 +15,9 @@ import { links } from "./Pages/Navbar/Navbar";
 import checkPagePermission from "./utils/checkPagePermssion";
 
 function App() {
+  const location=useLocation();
   const { auth } = useAuth();
-  let flag=checkPagePermission();
+  let flag=checkPagePermission(location?.pathname);
   console.log(flag)
   return (
     <>
