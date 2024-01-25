@@ -2,12 +2,13 @@ import { IoAddCircleSharp } from "react-icons/io5";
 
 import { MdDelete } from "react-icons/md";
 
-import { useState } from "react";
+import {useState } from "react";
 import ShowBills from "./ShowBills";
 import { RxCross2 } from "react-icons/rx";
 
 const Bills = () => {
   const [showBillDetails, setShowBillDetails] = useState(false);
+
   const [billDetails, setBillDetails] = useState([
     {
       slNo: 1,
@@ -101,7 +102,7 @@ const Bills = () => {
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
       <div className="flex flex-row justify-between">
-        <div className="max-w-2xl">
+        <div className="w-1/2">
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3 bg-teal-600">
               {bill.slNo}
@@ -152,7 +153,11 @@ const Bills = () => {
                   <input
                     type="date"
                     onChange={(e) =>
-                      handleInputChange(bill.slNo, "billDate", e.target.value)
+                      handleInputChange(
+                        bill.slNo,
+                        "billDate",
+                        e.target.value.toISOString()
+                      )
                     }
                     className="text-xl border p-1 rounded-md w-full"
                     placeholder="Enter Date"
@@ -201,7 +206,7 @@ const Bills = () => {
           </div>
         </div>
 
-        <div className="max-w-1/3 p-4">
+        <div className="w-1/3 p-4">
           {showBillDetails && (
             <ShowBills
               billDetails={billDetails}

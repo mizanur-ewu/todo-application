@@ -10,7 +10,7 @@ import {
     const { data, isLoading, refetch } = useQuery({
       queryKey: ["todos"],
       queryFn: async () => {
-        return await fetch("http://localhost:3004/students").then((res) =>
+        return await fetch("http://localhost:4000/student").then((res) =>
           res.json()
         );
       },
