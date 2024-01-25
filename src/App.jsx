@@ -11,16 +11,13 @@ import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 import NotFound from "./Pages/NotFound/NotFound";
 import useAuth from "./hooks/useAuth";
-// import useAuth from "./utils/useAuth";
+import { links } from "./Pages/Navbar/Navbar";
+import checkPagePermission from "./utils/checkPagePermssion";
 
 function App() {
-  // console.log(location?.pathname);
-  const { auth, loading } = useAuth();
-  console.log(auth);
-  // if(loading){
-  //   return <p>loading</p>
-  // }
-
+  const { auth } = useAuth();
+  let flag=checkPagePermission();
+  console.log(flag)
   return (
     <>
       <Routes>

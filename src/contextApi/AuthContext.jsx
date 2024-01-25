@@ -11,11 +11,11 @@ const AuthContext = ({ children }) => {
         name: "Bills",
         link: "/bills",
       },
-      {
-        id: 2,
-        name: "Todos",
-        link: "/todos",
-      },
+      // {
+      //   id: 2,
+      //   name: "Todos",
+      //   link: "/todos",
+      // },
       {
         id: 3,
         name: "Dependent Selector",
@@ -31,13 +31,11 @@ const AuthContext = ({ children }) => {
   });
   const authInfo = {
     auth,
-    loading
+    loading,
   };
 
   return (
-    <UserContext.Provider value={authInfo}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={authInfo}>{children}</UserContext.Provider>
   );
 };
 
