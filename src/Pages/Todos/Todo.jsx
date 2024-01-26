@@ -23,7 +23,6 @@ const Todo = ({ item }) => {
   }
 
   const handleDelete = (id) => {
-    console.log(id);
     mutate(id);
   };
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useLocalStorage from "../../utils/useLocalStorage";
 
-export const links = [
+export const navbarLinks = [
   {
     id: 1,
     name: "Bills",
@@ -26,13 +26,13 @@ export const links = [
 const Navbar = () => {
   const localStorage = useLocalStorage();
   const { getAuthToken } = localStorage;
-const userPermissions = getAuthToken()?.userPermission;
+const userPagePermissions = getAuthToken()?.userPagePermission;
   return (
     <div>
       <ul className="flex m-2">
-        {userPermissions?.map(
+        {userPagePermissions?.map(
           (permission) =>
-            links?.some((link) => link?.name === permission?.name) && (
+            navbarLinks?.some((link) => link?.name === permission?.name) && (
               <li key={permission?.id}>
                 <Link
                   className="m-2 px-1 rounded-md text-xl bg-blue-600"

@@ -1,24 +1,18 @@
-import useAuth from "../hooks/useAuth";
-import { links } from "../Pages/Navbar/Navbar";
+import { navbarLinks } from "../Pages/Navbar/Navbar";
 
-export const checkPagePermission = (pageLink) => {
-  const { auth } = useAuth();
+export const checkPagePermission = (pageLink, auth) => {
+  console.log(pageLink);
+  const userPagePermission = auth?.userPagePermission;
 
-  console.log(links);
-  console.log(auth?.userPermission);
-  const permissionPage = auth?.userPermission;
 
-  const flag = links?.map((link) => {
-    console.log(pageLink);
-    if (link?.link === pageLink) {
-      permissionPage?.map((perPage) => {
-        if (perPage?.link === pageLink) {
-          console.log("first");
-          return "bothMatch"
-        }
-      });
-    }
-  });
-  console.log(flag)
+  const navbarLinkMatch = navbarLinks?.find((link) => link.link === pageLink);
+  const permissionLinkMatch = userPagePermission?.find(
+    (page) => page?.link === pageLink
+  );
+  if (navbarLinkMatch && permissionLinkMatch) {
+    return "authorized";
+  } else if (navbarLinkMatch && !permissionLinkMatch) {
+    return "unauthorized";
+  } else return "notFound";
 };
 export default checkPagePermission;
