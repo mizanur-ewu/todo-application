@@ -8,7 +8,7 @@ const RequireAuth = ({ pageName, children }) => {
   const { getAuthToken } = localStorage;
 
   const hasPermission = getAuthToken()?.userPermission?.some(
-    (permission) => permission?.link === `/${pName}`
+    (permission) => permission?.name === pageName
   );
   console.log(getAuthToken())
 

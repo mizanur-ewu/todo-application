@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
-import { router } from "./Router/Routes";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Main from "./Layout/Main";
 import Bills from "./Pages/Todos/Bills/Bills";
 import Home from "./Pages/Home/Home";
@@ -12,24 +9,30 @@ import PrivateRoute from "./Router/ProtectedRoute";
 import Xlsx from "./Pages/Xlsx/Xlsx";
 import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
+import NotFound from "./Pages/NotFound/NotFound";
+import useAuth from "./hooks/useAuth";
+import { links } from "./Pages/Navbar/Navbar";
+import checkPagePermission from "./utils/checkPagePermssion";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const location=useLocation();
+  const { auth } = useAuth();
+  let flag=checkPagePermission(location?.pathname);
+  console.log(flag)
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />}>
-            <Route index element={<Home />} />
-            <Route
-              path="/bills"
-              element={
-                <RequireAuth pageName={"Bills"}>
-                  <Bills />
-                </RequireAuth>
-              }
-            /><Route
+      <Routes>
+        <Route path="/" element={<Main />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/bills"
+            element={
+              <RequireAuth pageName={"Bills"}>
+                <Bills />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/todos"
             element={
               <RequireAuth pageName={"Todos"}>
@@ -37,43 +40,27 @@ function App() {
               </RequireAuth>
             }
           />
-            <Route
-              path="/dependentSelector"
-              element={
+          <Route
+            path="/dependentSelector"
+            element={
+              <RequireAuth pageName={"Dependent Selector"}>
+                <DependentSelector />
+              </RequireAuth>
+            }
+          />
 
-
-                <RequireAuth pa >
-                  <DependentSelector />
-                </RequireAuth>
-              }
-            />
-            
-            <Route
-              path="/xlsx"
-              element={
-                <PrivateRoute>
-                  <Xlsx />
-                </PrivateRoute>
-              }
-            />
-          </Route>
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-      {/* {" "}
-      <RouterProvider router={router} />
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/xlsx"
+          element={
+            <PrivateRoute>
+              <Xlsx />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </>
   );
 }
