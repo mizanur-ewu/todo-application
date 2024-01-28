@@ -11,13 +11,13 @@ import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 import NotFound from "./Pages/NotFound/NotFound";
 import useAuth from "./hooks/useAuth";
-import { links } from "./Pages/Navbar/Navbar";
+import { navbarLinks } from "./Pages/Navbar/Navbar";
 import checkPagePermission from "./utils/checkPagePermssion";
 
 function App() {
   const location=useLocation();
   const { auth } = useAuth();
-  let flag=checkPagePermission(location?.pathname);
+  let flag=checkPagePermission(location?.pathname, auth);
   console.log(flag)
   return (
     <>

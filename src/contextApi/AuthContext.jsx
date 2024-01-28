@@ -5,7 +5,7 @@ export const UserContext = React.createContext();
 const AuthContext = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState({
-    userPermission: [
+    userPagePermission: [
       {
         id: 1,
         name: "Bills",

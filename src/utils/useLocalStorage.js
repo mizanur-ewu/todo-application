@@ -6,7 +6,7 @@ const useLocalStorage = () => {
   const getAuthToken = () => {
     const authToken = {
       token: "authToken",
-      userPermission: [
+      userPagePermission: [
         {
           id: 1,
           name: "Bills",
