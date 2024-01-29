@@ -1,9 +1,8 @@
 import { navbarLinks } from "../Pages/Navbar/Navbar";
 
 export const checkPagePermission = (pageLink, auth) => {
-  console.log(pageLink);
-  const userPagePermission = auth?.userPagePermission;
 
+  const userPagePermission = auth?.userPagePermission;
 
   const navbarLinkMatch = navbarLinks?.find((link) => link.link === pageLink);
   const permissionLinkMatch = userPagePermission?.find(
