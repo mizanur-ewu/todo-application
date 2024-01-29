@@ -9,7 +9,6 @@ const RequireAuth = ({ pageName, children }) => {
   const hasPermission = getAuthToken()?.userPagePermission?.some(
     (permission) => permission?.name === pageName
   );
-  console.log(getAuthToken())
 
   if (!hasPermission) {
     return <Navigate to="/login" />;

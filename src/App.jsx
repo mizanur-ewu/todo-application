@@ -10,19 +10,28 @@ import Xlsx from "./Pages/Xlsx/Xlsx";
 import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 import NotFound from "./Pages/NotFound/NotFound";
-import useAuth from "./hooks/useAuth";
 import checkPagePermission from "./utils/checkPagePermssion";
 import Unauthorized from "./Pages/Unauthorized/Unauthorized";
+import { useContext } from "react";
+import { UserContext } from "./contextApi/AuthContext";
 
 function App() {
   const location = useLocation();
-  const { auth } = useAuth();
-  let flag = checkPagePermission(location?.pathname, auth);
-  console.log(flag);
+  const test = useContext(UserContext);
+  let flag = checkPagePermission(location?.pathname, test.auth);
+  console.log(flag)
   if (flag === "unauthorized") {
+    console.log("first")
     return (
       <Routes>
-        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<Unauthorized />} />
+      </Routes>
+    );
+  }
+  if(flag === "notFound"){
+    return (
+      <Routes>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     );
   }
@@ -34,25 +43,25 @@ function App() {
           <Route
             path="/bills"
             element={
-              <RequireAuth pageName={"Bills"}>
-                <Bills />
-              </RequireAuth>
+              // <RequireAuth pageName={"Bills"}>
+              <Bills />
+              // </RequireAuth>
             }
           />
           <Route
             path="/todos"
             element={
-              <RequireAuth pageName={"Todos"}>
-                <Todos />
-              </RequireAuth>
+              // <RequireAuth pageName={"Todos"}>
+              <Todos />
+              // </RequireAuth>
             }
           />
           <Route
             path="/dependentSelector"
             element={
-              <RequireAuth pageName={"Dependent Selector"}>
-                <DependentSelector />
-              </RequireAuth>
+              // <RequireAuth pageName={"Dependent Selector"}>
+              <DependentSelector />
+              // </RequireAuth>
             }
           />
 
