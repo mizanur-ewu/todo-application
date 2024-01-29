@@ -5,7 +5,7 @@ const useLocalStorage = () => {
   };
   const getAuthToken = () => {
     const authToken = {
-      token: "authToken",
+      token: "authTokennnnnnnn",
       userPagePermission: [
         {
           id: 1,
@@ -20,7 +20,7 @@ const useLocalStorage = () => {
         {
           id: 3,
           name: "Dependent Selector",
-          link: "/dependentSelector", 
+          link: "/dependentSelector",
         },
         {
           id: 4,

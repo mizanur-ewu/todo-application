@@ -7,10 +7,15 @@ const AuthContext = ({ children }) => {
   const localStorage = useLocalStorage();
   const { getAuthToken } = localStorage;
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(getAuthToken()?.token? true:false);
   const [auth, setAuth] = useState(getAuthToken());
   const authInfo = {
     auth,
     loading,
+    isLoggedIn,
+    setIsLoggedIn,
+    setLoading,
+    setAuth,
   };
 
   return (
