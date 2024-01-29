@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Main from "./Layout/Main";
 import Bills from "./Pages/Todos/Bills/Bills";
 import Home from "./Pages/Home/Home";
@@ -10,17 +10,31 @@ import Xlsx from "./Pages/Xlsx/Xlsx";
 import Login from "./Pages/Login/Login";
 import RequireAuth from "./utils/RequireAuth";
 import NotFound from "./Pages/NotFound/NotFound";
-import useAuth from "./hooks/useAuth";
-// import useAuth from "./utils/useAuth";
+import checkPagePermission from "./utils/checkPagePermssion";
+import Unauthorized from "./Pages/Unauthorized/Unauthorized";
+import { useContext } from "react";
+import { UserContext } from "./contextApi/AuthContext";
 
 function App() {
-  // console.log(location?.pathname);
-  const { auth, loading } = useAuth();
-  console.log(auth);
-  // if(loading){
-  //   return <p>loading</p>
-  // }
-
+  const location = useLocation();
+  const test = useContext(UserContext);
+  let flag = checkPagePermission(location?.pathname, test.auth);
+  console.log(flag)
+  if (flag === "unauthorized") {
+    console.log("first")
+    return (
+      <Routes>
+        <Route path="*" element={<Unauthorized />} />
+      </Routes>
+    );
+  }
+  if(flag === "notFound"){
+    return (
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    );
+  }
   return (
     <>
       <Routes>
@@ -29,25 +43,25 @@ function App() {
           <Route
             path="/bills"
             element={
-              <RequireAuth pageName={"Bills"}>
-                <Bills />
-              </RequireAuth>
+              // <RequireAuth pageName={"Bills"}>
+              <Bills />
+              // </RequireAuth>
             }
           />
           <Route
             path="/todos"
             element={
-              <RequireAuth pageName={"Todos"}>
-                <Todos />
-              </RequireAuth>
+              // <RequireAuth pageName={"Todos"}>
+              <Todos />
+              // </RequireAuth>
             }
           />
           <Route
             path="/dependentSelector"
             element={
-              <RequireAuth pageName={"Dependent Selector"}>
-                <DependentSelector />
-              </RequireAuth>
+              // <RequireAuth pageName={"Dependent Selector"}>
+              <DependentSelector />
+              // </RequireAuth>
             }
           />
 

@@ -4,7 +4,7 @@ import useLocalStorage from "../../utils/useLocalStorage";
 
 const Login = () => {
   const localStorage = useLocalStorage();
-  const { getAuthToken, setAuthToken } = localStorage;
+  const { setAuthToken } = localStorage;
 
   const onFinish = (values) => {
     const data =

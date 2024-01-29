@@ -4,13 +4,11 @@ import { Navigate, useParams } from "react-router-dom";
 const RequireAuth = ({ pageName, children }) => {
   const localStorage = useLocalStorage();
   const {pName}  = useParams();
-  console.log(pName);
   const { getAuthToken } = localStorage;
 
-  const hasPermission = getAuthToken()?.userPermission?.some(
+  const hasPermission = getAuthToken()?.userPagePermission?.some(
     (permission) => permission?.name === pageName
   );
-  console.log(getAuthToken())
 
   if (!hasPermission) {
     return <Navigate to="/login" />;

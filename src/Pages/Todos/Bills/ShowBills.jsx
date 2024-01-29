@@ -1,7 +1,6 @@
 import React from "react";
 
 const ShowBills = ({ billDetails, setBillDetails }) => {
-  console.log(billDetails);
   //slNo
   //billDescription
   //billAmount
