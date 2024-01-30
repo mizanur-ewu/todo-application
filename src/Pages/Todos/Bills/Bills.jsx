@@ -102,7 +102,7 @@ const Bills = () => {
     <div>
       <h2 className="text-3xl font-semibold  flex justify-center">Bills</h2>
       <div className="flex flex-row justify-between">
-        <div className="w-1/2">
+        <div className="">
           {billDetails.map((bill) => (
             <div key={bill.slNo} className="border p-3 bg-teal-600">
               {bill.slNo}
