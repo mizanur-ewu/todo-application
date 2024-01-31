@@ -27,6 +27,11 @@ const useLocalStorage = () => {
           name: "XLSX",
           link: "/xlsx",
         },
+        {
+          id: 5,
+          name: "Settings",
+          link: "/settings",
+        },
       ],
     };
     return authToken;

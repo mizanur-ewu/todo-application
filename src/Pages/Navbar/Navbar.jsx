@@ -22,6 +22,11 @@ export const navbarLinks = [
     name: "XLSX",
     link: "/xlsx",
   },
+  {
+    id: 5,
+    name: "Settings",
+    link: "/settings",
+  },
 ];
 const Navbar = () => {
   const localStorage = useLocalStorage();
