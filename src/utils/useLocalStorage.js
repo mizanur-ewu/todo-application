@@ -32,6 +32,11 @@ const useLocalStorage = () => {
           name: "Settings",
           link: "/settings",
         },
+        {
+          id: 6,
+          name: "Login",
+          link: "/login",
+        },
       ],
     };
     return authToken;

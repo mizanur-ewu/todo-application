@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
@@ -7,6 +6,7 @@ import Todos from "../Pages/Todos/Todos";
 import DependentSelector from "../Pages/DependentSelector/DependentSelector";
 import Xlsx from "../Pages/Xlsx/Xlsx";
 import Settings from "../Pages/Settings/Settings";
+import Login from "../Pages/Login/Login";
 
 const MainRoute = () => {
   return (
@@ -20,6 +20,7 @@ const MainRoute = () => {
           <Route path="/xlsx" element={<Xlsx />} />
           <Route path="/settings" element={<Settings/>} />
         </Route>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </>
   );
