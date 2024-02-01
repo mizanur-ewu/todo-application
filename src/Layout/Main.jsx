@@ -6,8 +6,8 @@ const Main = () => {
   return (
     <div>
       <Navbar/>
-      <Outlet/>
-      
+      <div className='border bg-red-400'>jfel</div>
+            
     </div>
   );
 };
