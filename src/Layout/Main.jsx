@@ -47,11 +47,11 @@ const Main = () => {
   return (
     <div>
       <div
-        className={`h-screen bg-slate-200 flex ${
-          isSidebarOpen ? "ml-0" : "-ml-[200px]"
+        className={`h-screen bg-slate-200 flex  duration-300 ease-in-linear   ${
+          isSidebarOpen ? "ml-0" : "-ml-[100px]"
         }`}
       >
-        <div className="w-[200px] overflow-y-auto border ">
+        <aside className="w-[200px] bg-[#1c2434] text-white  overflow-y-auto border ">
           <button
             className="absolute top-2 right-2 p-2 bg-gray-300 rounded-full"
             onClick={toggleSidebar}
@@ -66,7 +66,7 @@ const Main = () => {
                   (link) => link?.name === permission?.name
                 ) && (
                   <ul key={permission.name}>
-                    <li className="bg-blue-600 border" key={permission?.id}>
+                    <li className=" border" key={permission?.id}>
                       <Link
                         className="m-2 px-1 rounded-md text-sm"
                         to={permission?.link}
@@ -78,7 +78,7 @@ const Main = () => {
                 )
             )}
           </div>
-        </div>
+        </aside>
         <div className="flex-grow border">
           <Outlet />
         </div>
